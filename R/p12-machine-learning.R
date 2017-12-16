@@ -1,6 +1,7 @@
 #' Classsification
 #'
-#' @importFrom mlbench
+#' @import mlbench
+#' @export
 f12.1 <- function()
 {
   data("Glass", package = "mlbench")

@@ -1,6 +1,5 @@
 #' 练习: 熟练使用R软件
 #'
-#' @export
 #' @examples
 #' # 实践1 (最初几步)
 #' x = 1:100 # 把1,2,...100这个整数向量赋值到x
@@ -86,7 +85,7 @@
 #' cummin(x)
 #' cumprod(x)
 #' cor(x, sin(x/20))
-#' 
+#'
 #' # 实践6 (简单图形)
 #' x=rnorm(200)
 #' hist(x, col= "light blue")
@@ -100,7 +99,7 @@
 #' print("hello R")
 #' paste("x的最小值是: ", min(x)) # 打印
 #' demo(graphics)
-#' 
+#'
 #' 实践7 (复数运算和求函数极值)
 #' (2+4i)^-3.5 + (2i+4.5)*(-1.7-2.3i)/((2.6 - 7i)* (-4+5.1i))
 #' (z = complex(real = rnorm(10), imaginary = rnorm(10)))
