@@ -123,7 +123,202 @@
 #' a[3] = "w"
 #' a;factor(a)
 
+#' # 实践9 (数据输入输出)
+#' x = scan() # 屏幕输入, 可键入或者战天, 多行输入在空行后键入Enter.
+#' ## 1.5 2.6 3.7 2.1 8.9 12 -1.2 -4
+#' x=c(1.5,2.6,3.7,2.1,8.9,12,-1.2,-4) #同上
+#' w = read.table(file.choose(), header=T) #从列表中选择数据
+#' setwd("f:/mydata") #设置工作路径, setwd("~/mydata") #Unix
+#' (x=rnorm(20)) # 给x赋20个标准正态分布随机数
+#' #(注: 有常见分布的随机数, 分布函数, 密度函数以及分位数函数)
+#' write(x, "test.txt") #把数据写入文件(路径要对)
+#' y = scan("test.txt") #扫描文件数值到y
+#' y = iris; y[1:5, ]; str(y) #iris是R自带的数据
+#' write.table(y, "test.txt", row.names=F) #把数据写入文本
+#' w = read.table(y, "test.txt", row.names = F) #读取带变量名的数据
+#' str(w) #汇总
+#' write.csv(y, "test.csv") #把数据写入csv文件
+#' v = read.csv("test.csv") #读入csv数据文件
+#' str(v) #汇总
+#' data = read.table("clipboard") #读入剪贴板的数据
 
+#' # 实践10 (序列等)
+#' (z=seq(-1, 10, length=100)) #生成-1到10的等差序列100个
+#' z=seq(-1, 10, len=100) #同上
+#' (z=seq(10, -1, -0.1)) # 10到-1的间隔为-0.1的序列
+#' (x = rep(1:3, 3)) #三次重复1:3
+#' (x=rep(3:5, 1:3))
+#' x=rep(c(1,10), c(4,5))
+#' w=c(1,3,x,z) #组合成新向量
+#' x=rep(0, 10); z=1:3;x+z # 长度不同, 会给出警告, 结果是循环后相加
+#' x*z #向量乘法
+#' rev(x) #反向
+#' z=c("no cat", "has ", "nine", "tails") #字符向量
+#' z[1] == "no cat" #双等号为逻辑等式
+#' z=1:5
+#' z[7] = 8; z #什么结果? NA表示为缺失值(not available)
+#' z=NULL
+#' z[c(1,3,5)]=1:3
+#' z
+#' rnorm(10)[c(2,5)]
+#' z[-c(1, 3)] #去掉1,3号元素
+#' z=sample(1:100, 10);z
+#' which(z==max(z)) #给出最大值的小标
+#' # 实践11 (矩阵)
+#' x = sample(1:100, 12); x #抽样
+#' all(x>0); all(x!=0); any(x>0); (1:10)[x>0] #逻辑向量的应用
+#' x
+#' diff(x) #差分
+#' diff(x, lag=2) #差分
+#' x = matrix(1:20, 4, 5); x #构造矩阵
+#' x = matrix(1:20, 4, 5, byrow = T); x #按行构造
+#' t(x) #矩阵转置
+#' x = matrix(sample(1:100, 20), 4, 5); x #按行构造
+#' 2*x
+#' x+5
+#' y=matrix(sample(1:100, 20), 5, 4)
+#' x + t(y) #矩阵加法
+#' (z=x %*% y) #矩阵乘法
+#' z1 = solve(z)
+#' z1 %*% z
+#' round(z1 %*% z, 14)
+#' b=solve(z, 1:4);b #解方程
+#' #实践 12(矩阵2)
+#' nrow(x);ncol(x);dim(x) #行列数目
+#' x=matrix(rnorm(24), 4, 6);x
+#' x[c(2,1), ] #第2和第1行
+#' x[, c(1,3)] #第1和第3列
+#' x[x[,1]> 0, 1] #第1列大于0的元素的个数
+#' x[, c(1,3)] #没有底1,3列的x
+#' diag(x) #x的对角线元素
+#' diag(1:5) #以1:5位对角线, 其他元素为0的矩阵
+#' diag(5)
+#' x[-2, -c(1,3)] #没有第2行, 第1,3列的x
+#' x[x[,1]>0 & x[, 3] <=1, 1] #第1列>0并且第3列<=1的第1列元素
+#' x[x[,1]<0.51 | x[, 2]>0, 1] #第一列<0.51或者第2列中>0的第一列元素
+#' x[!x[,2]<0.51, 1]
+#' apply(x, 1, mean) #第1维求均值
+#' apply(x, 2, sum) #第二维求和
+#' x = matrix(rnorm(24), 4, 6);x
+#' lower.tri(x)
+#' x[lower.tri(x)]=0;x #得上三角矩阵
+#' x[upper.tri(x)]=0;x
+#' x[matrix(c(T,T,T,F), 2)] = 0;x
+#'
+#' #实践13(高维数组)
+#' x=array(runif(24), c(4,3,2));x
+#' is.matrix(x)
+#' dim(x) #得维数
+#' is.matrix(x[1,,]) #部分三维数组是矩阵
+#' x=array(1:24, c(4,3,2));x
+#' x[c(1,3),,]
+#' apply(x, 1, mean)
+#' apply(x, 3, sum)
+#'
+#' #实践14 (矩阵和向量之间的运算)
+#' x = matrix(1:20, 5,4);x
+#' sweep(x, 1, 1:5, "*") #把向量1:5的每个元素乘到每一行
+#' sweep(x, 2, 1:4, "+") #把向量1:4的每个元素加到每一列
+#' x*1:5
+#' #下面把x标准化, 即每一元素减去该列的均值, 除以该列标准差
+#' (x=matrix(sample(1:100, 24), 6, 4)); (x1=scale(x))
+#' (x2=scale(x, scale=F))
+#' (x3=scale(x, center =F))
+#' round(apply(x1, 2, mean), 14)
+#' round(apply(x1, 2, sd), 14)
+#' round(apply(x2, 2, mean))
+#' round(apply(x3, 2, mean))
+#'
+#' #实践15 (缺失值, 数据的合并)
+#' airquality #有缺失值(NA)的R自带数据
+#' complete.cases(airquality) #判定每行有无缺失值
+#' which(complete.cases(airquality)==F) #有NA的行号
+#' sum(complete.cases(airquality)) #完整观测值的个数
+#' na.omit(airquality) #删去缺失值的数据
+#'  # 附加, 横或竖合并数据: append, cbing, rbind
+#' x=1:10; x[12]=3;x
+#' (x1 = append(x, 77, after = 5))
+#' cbind(1:5, rnorm(5))
+#' rbind(1:5, rnorm(5))
+#' cbind(1:3, 4:6); rbind(1:3, 4:6) #去掉矩阵重复的行
+#' (x=rbind(1:5, runif(5), runif(5), 1:5, 7:11))
+#' x[!duplicated(x)]
+#' unique(x) #按行去重
+#' x = rbind(1:5, 1:5);x
+#' x = cbind(x, c(5,5));x
+#' unique(x)
+#'
+#' #实践16(list)
+#'  #list可以是任何对象(包含list本身)的集合
+#' z=list(1:3, Tom=c(1:2, a=list("R", letters[1:5]), w="hi!"));z
+#' z[[1]]; z[[2]]
+#' z$T
+#' z$T$a2
+#' z$T[[3]]
+#' z$T$w
+#' #实践17(条形图和表):
+#' x = scan() #30个顾客在5个品牌中的挑选
+#'  # 3 3 3 4 1 4 2 1 3 2 5 3 1 2 5 2 3 4 2 2 5 3 1 4 2 2 4 3 5 2
+#' barplot(x)
+#' table(x)
+#' barplot(table(x)) #正确的图
+#' barplot(table(x)/length(x))
+#' table(x)
+#' #实践18(形成表格)
+#' library(MASS)
+#' quine # MASS自带数据
+#' attach(quine) # 把数据变量的名称放入内存
+#' table(Age)
+#' table(Sex, Age); tab=xtabs(~ Sex+Age, quine); unclass(tab)
+#' tapply(Days, Age, mean)
+#' tapply(Days, list(Sex, Age), mean)
+#' detach(quine) #attach的逆运算
+#' # 注: 使用data.table
+#' library(data.table)
+#' quine  = data.table(quine)
+#' quine[, table(Age)]
+#' quine[, table(Sex, Age)]
+#' quine[, mean(Days), by=.(Age)]
+#' quine[, mean(Days), by=.(Sex, Age)]
+#' # 实践19(如何写函数)
+#' # 下面这个函数按照定义(变成简单, 效率不高), 求n以内的素数
+#' ss = function(n=100){
+#'   z=2;
+#'   for(i in 2:n)
+#'     if (any(i %% 2:(i-1)==0)==F)
+#'       z=c(z,i);
+#'   return(z)
+#' }
+#' fix(ss) #修改任何函数
+#' ss()
+#' t1 = Sys.time() #记录时间点
+#' ss(10000) #计算10000以内的素数
+#' Sys.time() - t1
+#' system.time(ss(10000)) #计算执行ss(10000)所用时间
+#' # 函数可以不写return, 最后一个值为return的值
+
+#' # 实践20(画图)
+#' library(cnfont) #画图显示中文
+#' x = seq(-3, 3, len=20); y = dnorm(x) #产生数据
+#' w = data.frame(x, y) #合并x,y, 生成数据w
+#' par(mfcol = c(2, 2))
+#' plot(y~x, w, main="正态密度函数")
+#' plot(y~x, w, type="l", main="正态密度函数")
+#' plot(y~x, w, type="o", main="正态密度函数")
+#' plot(y~x, w, type="b", main="正态密度函数")
+#' par(mfcol = c(1, 1))
+
+#' # 实践21(色彩和符号等调节)
+#' plot(1,1, xlim = c(1,7.5), ylim = c(0,5), type="n") #画出框架
+#' # 在plot后添加点(添加线用lines函数)
+#' points(1:7, rep(4.5, 7), cex=seq(1, 4, l=7), col=1:7, pch=0:6)
+#' text(1:7, rep(3.5, 7), labels=paste(0:6, letters[1:7]), cex = seq(1,4,l=7), col=1:7)
+#' points(1:7, rep(2,7), pch=(0:6)+7) #点出符号7~13
+#' text((1:7)+0.25, rep(2, 7), paste((0:6)+7)) #加符号号码
+#' points(1:7, rep(1,7), pch=(0:6)+14) #点出符号14~20
+#' text((1:7)+0.25, rep(1,7), paste((0:6)+14)) #加符号号码
+#' #关于符号性状, 大小, 颜色以及其他画图选项的说明可用"?par"查看
+#' #
 #' @name appendix
 NULL
 
