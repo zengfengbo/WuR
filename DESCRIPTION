@@ -5,7 +5,8 @@ Authors@R: c(
   person("fengbo", "zeng", role=c("aut","cre"), email="529063092@qq.com"))
 Imports:
     data.table,
-    mlbench
+    mlbench,
+    agricolae
 Description: Wu Statitic using R
     code of the book
 License: GPL-2 | file LICENSE
